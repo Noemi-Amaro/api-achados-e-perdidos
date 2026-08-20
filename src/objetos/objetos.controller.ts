@@ -10,28 +10,65 @@ export class ObjetosController {
 
   //Definindo o endpoint POST/objetos
   @Post()
-  cadastrar(@Body() createObjetoDto: CreateObjetoDto) {
-    return this.objetosService.cadastrar(createObjetoDto);
-  }
+   @ApiOperation({
+        summary: 'Cadastrar um novo objeto'
+    })
+    @ApiResponse({
+        status: 201,
+        description: 'Objeto cadastrado com sucesso'
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Não foi possível cadastrar o objeto'
+    })
 
+  criar(@Body() createObjetoDto: CreateObjetoDto) {
+    return this.objetosService.criar(createObjetoDto);
+  }
+//------------------------------------------------------------------------
    //Definindo o endpoint GET/objetos
   @Get()
+   @ApiOperation({
+        summary: 'Retorna todos os objetos cadastrados'
+    })
+    @ApiResponse({
+        status: 201,
+        description: 'Lista de objetos retornados com sucesso'
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Não foi possível retornar a lista de objetos'
+    })
    listarTodos(){
         return this.objetosService.listarTodos();
     }
 
+    //------------------------------------------------------------------
     // Define o endpoint GET/objetos/:id
      @Get(':id')
+     @ApiOperation({
+        summary: 'Localizarum objeto específico pelo ID'
+    })
+    @ApiResponse({
+        status: 201,
+        description: 'Objeto encontrado com sucesso'
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Objeto não encontrado'
+    })
      buscaPorId(
         @Param('id', ParseIntPipe) id: number
     ) {
         return this.objetosService.buscaPorId(id);
     }
 
-    // Define o endpoint PUT objetos/:id
+    //------------------------------------------------------------------------
+
+    // Define o endpoint PUT /objetos/:id
     @Put(':id')
      atualizar(
-        @Param('id') id: number, @Body() dados:updateobjetoDto){
+        @Param('id') id: number, @Body() dados:updateObjetoDto){
         return this.objetosService.atualizar(id, dados);
     }
 
