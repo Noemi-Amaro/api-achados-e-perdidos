@@ -2,11 +2,12 @@ import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException,Pars
 import { ObjetosService } from './objetos.service';
 import { CreateObjetoDto} from './dto/create-objeto.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { updateobjetoDto } from './dto/update-objeto.dto';
 
 ApiTags('Objetos')
 @Controller('objetos')
 export class ObjetosController {
-  constructor(private readonly objetosService: ObjetosService) {}
+constructor(private readonly objetosService: ObjetosService) {}
 
   //Definindo o endpoint POST/objetos
   @Post()
@@ -68,7 +69,7 @@ export class ObjetosController {
     // Define o endpoint PUT /objetos/:id
     @Put(':id')
      atualizar(
-        @Param('id') id: number, @Body() dados:updateObjetoDto){
+        @Param('id') id: number, @Body() dados:updateobjetoDto){
         return this.objetosService.atualizar(id, dados);
     }
 

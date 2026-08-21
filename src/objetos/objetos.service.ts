@@ -2,7 +2,7 @@ import { Injectable,NotFoundException} from '@nestjs/common';
 import { ResultSetHeader, RowDataPacket } from 'mysql2'; // ter retorno do banco de dados, confirmação (recurso da bd)
 import { DatabaseService } from 'src/database/database.service';
 import { CreateObjetoDto } from './dto/create-objeto.dto';
-import { updateObjetoDto } from './dto/update-objeto.dto';
+import { updateobjetoDto } from './dto/update-objeto.dto';
 
 @Injectable()
 export class ObjetosService {
@@ -57,11 +57,19 @@ constructor (private readonly databaseService: DatabaseService){}
         const resultado = await this.databaseService.query(
             'SELECT * FROM objetos WHERE id= ? ', [id]
         ) as RowDataPacket[];
+         if (resultado.length === 0){
+            // Interrompe a execução da requisição e retorna uma resposta HTTP 404 (Not Found), informando que o objeto solicitado não foi encontrado.
+            throw new NotFoundException(
+                'Objeto não encontrado'
+            );
+        }
+        return resultado[0];
     }
-         // Essa função será responsável por realizar a atualização dos objetos já cadastrados no banco de dados
-    async atualizar(id: number, dados: updateObjetoDto){
-        // Antes de realizar a atualização, buscamos o livro pelo ID.
-        //Caso o livro não exista, o método 'buscarPorId' já lança a exceção NotFound
+    
+
+    async atualizar(id: number, dados: updateobjetoDto){
+        // Antes de realizar a atualização, buscamos o objeto pelo ID.
+        //Caso o objeto não exista, o método 'buscarPorId' já lança a exceção NotFound
         await this.buscaPorId(id);
     // Os sinais de ? representados nos valores que serão enviados no array logo abaixo
         await this.databaseService.query(

@@ -6,7 +6,7 @@ id INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(255) NOT NULL,
 descricao TEXT,
 localEncontrado VARCHAR (255) NOT NULL,
-dataEncontado DATE NOT NULL,
+dataEncontrado DATE NOT NULL,
 --obs: ao usar o tipo ENUM e não VARCHAR garante que o banco aceite apenas esses dois valores.
 status ENUM ('ENCONTRADO', 'DEVOLVIDO') NOT NULL
 );
