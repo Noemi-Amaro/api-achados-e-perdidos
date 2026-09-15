@@ -18,14 +18,14 @@ async function bootstrap() {
     })
   );
 
-  // Trecho que fará nossa API ser documentada.
+  // Trecho que fará nossa API ser documentada (configuração do swagger).
   const config = new DocumentBuilder()
   .setTitle('API Achados e Perdidos')
   .setDescription('API para gerenciamento de achados e perdidos')
   .setVersion('1.0')
   .build();
 const documento = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('api_achados_perdidos', app, documento);
+SwaggerModule.setup('api_achados_perdidos', app, documento); // Define o caminho da página web
 
   await app.listen(process.env.PORT ?? 3000);
 }
