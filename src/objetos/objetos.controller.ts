@@ -4,7 +4,7 @@ import { CreateObjetoDto} from './dto/create-objeto.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { updateobjetoDto } from './dto/update-objeto.dto';
 
-ApiTags('Objetos')
+@ApiTags('Objetos') // Agrupa todas as rotas abaixo sob a categoria "objetos"
 @Controller('objetos')
 export class ObjetosController {
 constructor(private readonly objetosService: ObjetosService) {}
